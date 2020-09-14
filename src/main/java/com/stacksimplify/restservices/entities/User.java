@@ -1,44 +1,59 @@
 package com.stacksimplify.restservices.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 //Entity 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	@Column(name = "USER_NAME",length =50,nullable =false,unique=true)
+
+	@NotEmpty(message = "UserName is mandatory  field. Please provide username")
+	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
 	private String username;
-	
-	@Column(name = "FIRST_NAME",length =50,nullable =false)
+
+	@Size(min = 2, message = "First name should have atleast 2 character")
+	@Column(name = "FIRST_NAME", length = 50, nullable = false)
 	private String firstname;
-	
-	@Column(name = "LAST_NAME",length =50,nullable =false)
+
+	@Column(name = "LAST_NAME", length = 50, nullable = false)
 	private String lastname;
-	
-	@Column(name = "EMAIL",length =50,nullable =false)
+
+	@Column(name = "EMAIL", length = 50, nullable = false)
 	private String email;
-	
-	@Column(name = "ROLE",length =50,nullable =false)
+
+	@Column(name = "ROLE", length = 50, nullable = false)
 	private String role;
-	
-	@Column(name = "SSN",length =50,nullable =false,unique=true)
+
+	@Column(name = "SSN", length = 50, nullable = false, unique = true)
 	private String ssn;
 	
-	//NO argument constructor
+	
+
+	@OneToMany(mappedBy="user")		// For one user we can have multiple order
+	private List<Order> orders;		//so it is OneToMany relation
+	
+
+	
+	
+	// NO argument constructor
 	public User() {
-		
+
 		// TODO Auto-generated constructor stub
 	}
 
-	//Fields constructor
+	// Fields constructor
 	public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn) {
 		super();
 		this.id = id;
@@ -49,8 +64,8 @@ public class User {
 		this.role = role;
 		this.ssn = ssn;
 	}
-	
-	//Getters and Setters
+
+	// Getters and Setters
 
 	public Long getId() {
 		return id;
@@ -108,17 +123,21 @@ public class User {
 		this.ssn = ssn;
 	}
 
-	//To string
+	
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	// To string
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", email=" + email + ", role=" + role + ", ssn=" + ssn + "]";
 	}
-	
-	
-	
-	
-	
-	
 
 }
