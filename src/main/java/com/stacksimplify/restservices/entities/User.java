@@ -11,13 +11,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-//Entity 
+import org.springframework.hateoas.RepresentationModel;
+//import org.springframework.hateoas.ResourceSupport;
+
+//Entity 		// the classnames have changed--ResourceSupport changed to RepresentationModel
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends RepresentationModel {
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long userid;
 
 	@NotEmpty(message = "UserName is mandatory  field. Please provide username")
 	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
@@ -38,15 +41,10 @@ public class User {
 
 	@Column(name = "SSN", length = 50, nullable = false, unique = true)
 	private String ssn;
-	
-	
 
-	@OneToMany(mappedBy="user")		// For one user we can have multiple order
-	private List<Order> orders;		//so it is OneToMany relation
-	
+	@OneToMany(mappedBy = "user") // For one user we can have multiple order
+	private List<Order> orders; // so it is OneToMany relation
 
-	
-	
 	// NO argument constructor
 	public User() {
 
@@ -54,25 +52,29 @@ public class User {
 	}
 
 	// Fields constructor
-	public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn) {
+	public User(Long userid,
+			@NotEmpty(message = "UserName is mandatory  field. Please provide username") String username,
+			@Size(min = 2, message = "First name should have atleast 2 character") String firstname, String lastname,
+			String email, String role, String ssn, List<Order> orders) {
 		super();
-		this.id = id;
+		this.userid = userid;
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.role = role;
 		this.ssn = ssn;
+		this.orders = orders;
 	}
 
 	// Getters and Setters
 
-	public Long getId() {
-		return id;
+	public Long getUserid() {
+		return userid;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
 	public String getUsername() {
@@ -123,8 +125,6 @@ public class User {
 		this.ssn = ssn;
 	}
 
-	
-	
 	public List<Order> getOrders() {
 		return orders;
 	}
@@ -136,8 +136,8 @@ public class User {
 	// To string
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", email=" + email + ", role=" + role + ", ssn=" + ssn + "]";
+		return "User [userid=" + userid + ", username=" + username + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", email=" + email + ", role=" + role + ", ssn=" + ssn + ", orders=" + orders + "]";
 	}
 
 }

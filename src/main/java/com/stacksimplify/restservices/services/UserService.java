@@ -57,7 +57,7 @@ Optional<User> optionalUser = userRepository.findById(id);
 		if(!optionalUser.isPresent()) {
 			throw new UserNotFoundException("User not found in user repository,provide the correct userId");
 		}
-		user.setId(id);
+		user.setUserid(id);
 		return userRepository.save(user);
 	}
 	
