@@ -12,11 +12,15 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.hateoas.RepresentationModel;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //import org.springframework.hateoas.ResourceSupport;
 
 //Entity 		// the classnames have changed--ResourceSupport changed to RepresentationModel
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({"firstname","lastname"})
 public class User extends RepresentationModel {
 	@Id
 	@GeneratedValue
@@ -39,7 +43,10 @@ public class User extends RepresentationModel {
 	@Column(name = "ROLE", length = 50, nullable = false)
 	private String role;
 
+	
+	
 	@Column(name = "SSN", length = 50, nullable = false, unique = true)
+	@JsonIgnore
 	private String ssn;
 
 	@OneToMany(mappedBy = "user") // For one user we can have multiple order
