@@ -21,7 +21,7 @@ public class Order extends RepresentationModel  {
 	@JsonView(Views.Internal.class)
 	private Long orderId;
 	
-	@JsonView(Views.Internal.class)
+	//@JsonView(Views.Internal.class)
 	private String orderDescription;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
