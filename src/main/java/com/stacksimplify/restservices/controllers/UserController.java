@@ -1,12 +1,9 @@
 package com.stacksimplify.restservices.controllers;
 
 import java.util.List;
-
 import java.util.Optional;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import com.stacksimplify.restservices.entities.User;
 import com.stacksimplify.restservices.exceptions.UserExistsException;
 import com.stacksimplify.restservices.exceptions.UserNameNotFoundException;
@@ -89,9 +85,6 @@ public class UserController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
 			
 		}
-		
-		
-		
 	}
 	
 	//deleteUserById
@@ -111,6 +104,4 @@ public class UserController {
 		return user;
 	}
 	
-	
-
 }
